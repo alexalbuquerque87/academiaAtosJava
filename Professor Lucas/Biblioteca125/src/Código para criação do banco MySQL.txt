@@ -1,0 +1,41 @@
+create database biblioteca;
+use biblioteca;
+
+CREATE TABLE `Autor` (
+  `id` int not null auto_increment,
+  `nome` varchar(100) not null,
+  `nacionalidade` varchar(100),
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `Categoria` (
+  `id` int not null auto_increment,
+  `tipo_categoria` varchar(50),
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `Editora` (
+  `id` int not null auto_increment,
+  `nome` varchar(50),
+  PRIMARY KEY (`id`)
+);
+
+CREATE TABLE `Livro` (
+  `ISBN` varchar(50) not null,
+  `titulo` varchar (100) not null,
+  `ano` int not null,
+  `fk_editora` int not null,
+  `fk_categoria` int not null,
+  PRIMARY KEY (`ISBN`),
+  FOREIGN KEY (`fk_categoria`) REFERENCES `Categoria`(`id`),
+  FOREIGN KEY (`fk_editora`) REFERENCES `Editora`(`id`)
+);
+
+CREATE TABLE `LivroAutor` (
+  `id` int not null auto_increment,
+  `fk_autor` int not null,
+  `fk_livro` varchar(50) not null,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`fk_autor`) REFERENCES `Autor`(`id`),
+  FOREIGN KEY (`fk_livro`) REFERENCES `Livro`(`ISBN`)
+);
